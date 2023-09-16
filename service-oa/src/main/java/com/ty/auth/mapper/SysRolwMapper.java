@@ -6,6 +6,6 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 @Repository
-//@Mapper
+//@Mapper  或者启动类加  @MapperScan("com.ty.auth.mapper")
 public interface SysRolwMapper extends BaseMapper<SysRole> {
 }
