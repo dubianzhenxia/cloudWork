@@ -11,3 +11,5 @@ public class ServiceAuthApplication {
         SpringApplication.run(ServiceAuthApplication.class, args);
     }
 }
+
+//测试工具页面 http://localhost:8800/doc.html

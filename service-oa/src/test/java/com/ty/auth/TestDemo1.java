@@ -11,8 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 @SpringBootTest
 public class TestDemo1 {
@@ -26,13 +25,13 @@ public class TestDemo1 {
 
 
     @Test
-    public void getAll(){
+    public void getAll() {
         List<SysRole> sysRoles = mapper.selectList(null);
         System.out.println(sysRoles);
     }
 
     @Test
-    public void add(){
+    public void add() {
         SysRole sysRole = new SysRole();
         sysRole.setRoleName("管理员");
         sysRole.setRoleCode("admin_anzu");
@@ -43,7 +42,7 @@ public class TestDemo1 {
 
 
     @Test
-    public void update(){
+    public void update() {
         SysRole sysRole1 = mapper.selectById(1);
 
         sysRole1.setDescription("测试修改");
@@ -52,23 +51,21 @@ public class TestDemo1 {
     }
 
 
-
     @Test
-    public void delete(){
+    public void delete() {
         SysRole sysRole1 = mapper.selectById(1);
-       // @TableLogic  对应属性加了逻辑删除注解，故调用的是删除方法，实际执行的是修改操作【此注解可以自定义表示逻辑删除的字符】
+        // @TableLogic  对应属性加了逻辑删除注解，故调用的是删除方法，实际执行的是修改操作【此注解可以自定义表示逻辑删除的字符】
         //且前面的查询的方法自动不查已经逻辑删除的数据
         mapper.deleteById(sysRole1);
-
         //批量删除  传入集合，用Arrays.asList方法构建集合，逻辑删除ID为1、2的数据
-        mapper.deleteBatchIds(Arrays.asList(1,2));
+        mapper.deleteBatchIds(Arrays.asList(1, 2));
     }
 
 
     //条件查询
     @Test
-    public void query(){
-    //创建QueryWrapper对象，调用方法封装条件
+    public void query() {
+        //创建QueryWrapper对象，调用方法封装条件
         QueryWrapper<SysRole> wrapper = new QueryWrapper<>();
         //第一个参数是数据库的列名，不是java对象的属性名，下面就是查询role_name是test的结果
         wrapper.eq("role_name", "test");//此条查不到，输出[]因为被逻辑删除了
@@ -85,7 +82,7 @@ public class TestDemo1 {
     //条件查询2
     //lambda写法
     @Test
-    public void query2(){
+    public void query2() {
         LambdaQueryWrapper<SysRole> wrapper = new LambdaQueryWrapper();
         wrapper.eq(SysRole::getDescription, "杏子可爱");
         List<SysRole> sysRoles = mapper.selectList(wrapper);
@@ -95,7 +92,7 @@ public class TestDemo1 {
 
     //测试封装的service
     @Test
-    public void testService(){
+    public void testService() {
         //查全部（因为加了注解故不含逻辑删除的数据）
         List<SysRole> list = service.list();
         System.out.println(list);
@@ -133,9 +130,4 @@ public class TestDemo1 {
         System.out.println(users);
     }
 
-
 }
-
-
-
-
